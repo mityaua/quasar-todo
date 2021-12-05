@@ -61,7 +61,7 @@
       </q-item>
     </q-list>
 
-    <div v-if="!tasks.length" class="no-tasks absolute-center">
+    <div v-if="!tasks.length" class="no-tasks q-pa-sm">
       <q-icon name="check" size="100px" color="primary" />
 
       <div class="text-h4 text-primary">No tasks</div>
@@ -71,7 +71,7 @@
 
 <script>
 import { useQuasar } from "quasar";
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch, onMounted } from "vue";
 
 export default defineComponent({
   name: "TodoPage",
@@ -80,9 +80,23 @@ export default defineComponent({
 
     // Переменная для инпута
     const inputText = ref("");
-
     // Массив тасок
     const tasks = ref([]);
+
+    // Вытягивает при маунте массив тасок из локального
+    onMounted(() => {
+      const todos = $q.localStorage.getItem("tasks") || [];
+      tasks.value.push(...todos);
+    });
+
+    // Следит за тасками и сохраняет в локальное
+    watch(tasks.value, (currentValue, oldValue) => {
+      try {
+        $q.localStorage.set("tasks", currentValue);
+      } catch (error) {
+        console.error(error);
+      }
+    });
 
     // Тоглит таски
     const toggleTask = (task) => (task.done = !task.done);

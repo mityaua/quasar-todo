@@ -14,7 +14,7 @@
       </q-toolbar>
 
       <!-- q-px - боковые паддинги, q-pt - верхний паддинг, q-mb - нижний отступ -->
-      <div class="q-px-lg q-pt-xl q-mb-md">
+      <div class="q-px-lg q-pt-xl q-pb-md">
         <div class="text-h3">Todo</div>
         <div class="text-subtitle1">{{ todayDate }}</div>
       </div>
@@ -78,9 +78,9 @@
 
     <q-page-container>
       <!-- Для сохранения состояния или во избежание перерисовки -- пофиксить! -->
-      <keep-alive>
-        <router-view />
-      </keep-alive>
+      <router-view v-slot="{ Component }"
+        ><keep-alive> <component :is="Component" /> </keep-alive
+      ></router-view>
     </q-page-container>
   </q-layout>
 </template>
