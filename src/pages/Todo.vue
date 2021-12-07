@@ -50,18 +50,12 @@
 
         <!-- Кнопка удаления таски -->
         <q-item-section v-if="task.done" side>
-          <q-btn
-            flat
-            round
-            dense
-            color="negative"
-            icon="delete"
-            @click.stop="deleteTask(index)"
+          <q-btn flat round dense icon="delete" @click.stop="deleteTask(index)"
         /></q-item-section>
       </q-item>
     </q-list>
 
-    <div v-if="!tasks.length" class="no-tasks q-pa-sm">
+    <div v-if="!tasks.length" class="no-tasks q-pa-xl">
       <q-icon name="check" size="100px" color="primary" />
 
       <div class="text-h4 text-primary">No tasks</div>
